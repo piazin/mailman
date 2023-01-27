@@ -1,5 +1,7 @@
 export interface ISendEmailDTO {
   to: string;
+  from: string;
   name?: string;
-  content: string;
+  email: string;
+  body: string;
 }
