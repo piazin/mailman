@@ -1,28 +1,35 @@
 import { Request, Response } from 'express';
 import { SendEmailUseCase } from './SendEmailUseCase';
+import { validateRequestBody } from '../../validators/validateRequestBody';
+import { senderValidator } from '../../validators/senderValidator';
 
 export class SendEmailController {
   constructor(private sendEmailUseCase: SendEmailUseCase) {}
 
   async handle(req: Request, res: Response): Promise<Response | void> {
-    const { name, email, message } = req.body;
-    const { sender } = req.params;
+    const { bodyError, value: body } = validateRequestBody(req.body);
+    if (bodyError) return res.status(400).json({ statusCode: 400, message: bodyError });
 
-    var result = await this.sendEmailUseCase.execute({
-      to: 'ls4803326@gmail.com',
-      from: sender,
-      email: email,
-      name: name,
-      body: message,
+    const { senderError, value: sender } = senderValidator(req.params as unknown as string);
+    if (senderError) return res.status(400).json({ statusCode: 400, message: senderError });
+
+    const originalUrl = req.get('origin') || '';
+
+    var sendEmailResult = await this.sendEmailUseCase.execute({
+      to: sender as string,
+      from: 'lucas@lucasouza.tech',
+      email: body?.email,
+      name: body?.name,
+      message: body?.message,
     });
 
-    if (result.isLeft()) {
-      return res.status(result.value.statusCode).json({
-        status: result.value.statusCode,
-        message: result.value.message,
+    if (sendEmailResult.isLeft()) {
+      return res.status(sendEmailResult.value.statusCode).json({
+        status: sendEmailResult.value.statusCode,
+        message: sendEmailResult.value.message,
       });
     }
 
-    return res.status(200).json(result.value);
+    return res.redirect(body?._redirect ? body._redirect : originalUrl);
   }
 }

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "react",
     "target": "ES5",
     "module": "CommonJS",
     "lib": ["ES6"],
@@ -14,5 +15,5 @@
     "skipDefaultLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src"]
+  "include": ["src", "custom_typings"]
 }

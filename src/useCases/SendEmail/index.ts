@@ -1,6 +1,6 @@
-import { ResendProvider } from '../../providers/implementations/ResendProvider';
-import { SendEmailController } from './SendEmailController';
 import { SendEmailUseCase } from './SendEmailUseCase';
+import { SendEmailController } from './SendEmailController';
+import { ResendProvider } from '../../providers/implementations/ResendProvider';
 
 const resendProvider = new ResendProvider();
 const sendEmailUseCase = new SendEmailUseCase(resendProvider);

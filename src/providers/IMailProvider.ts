@@ -6,6 +6,8 @@ export interface IMessage {
   from: string;
   subject: string;
   html: string;
+  reply_to?: string;
+  cc?: string;
 }
 
 export type Response = Either<ErrorToSendEmail, string>;
@@ -16,5 +18,5 @@ export interface IMailProvider<T, M> {
 }
 
 export interface MailProvider {
-  sendMail(message: IMessage): Promise<Response>;
+  sendMail(message: any): Promise<Response>;
 }
