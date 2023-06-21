@@ -1,30 +1,29 @@
-import nodemailer from 'nodemailer';
-import { IMailProvider, IMessage, Response } from '../IMailProvider';
+import nodemailer, { Transporter } from 'nodemailer';
+import { IMailProvider, Response } from '../IMailProvider';
 import { transportConfig } from '../../config/nodemailer.config';
 import { left, right } from '../../errors/either';
 import { ErrorToSendEmail } from '../../errors/baseError';
 
-export class NodemailerProvider implements IMailProvider {
-  private transporter;
+interface IMessage {
+  to: string;
+  from: string;
+  subject: string;
+  html: string;
+}
+
+export class NodemailerProvider implements IMailProvider<Transporter, IMessage> {
+  transporter: nodemailer.Transporter;
 
   constructor() {
     this.transporter = nodemailer.createTransport(transportConfig);
   }
 
   async sendMail(message: IMessage): Promise<Response> {
-    await this.transporter.sendMail(
-      {
-        to: message.to,
-        from: message.from,
-        subject: message.subject,
-        html: message.body,
-      },
-      (err) => {
-        if (err)
-          return left(new ErrorToSendEmail('falha ao enviar o email', 500));
-      }
-    );
-
-    return right('Sucesso ao enviar o email');
+    try {
+      await this.transporter.sendMail(message);
+      return right('Sucesso ao enviar email!');
+    } catch (error) {
+      return left(new ErrorToSendEmail('falha ao enviar o email!', 500));
+    }
   }
 }

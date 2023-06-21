@@ -1,9 +1,9 @@
-import { NodemailerProvider } from '../../providers/implementations/NodemailerProvider';
+import { ResendProvider } from '../../providers/implementations/ResendProvider';
 import { SendEmailController } from './SendEmailController';
 import { SendEmailUseCase } from './SendEmailUseCase';
 
-const nodemailerProvider = new NodemailerProvider();
-const sendEmailUseCase = new SendEmailUseCase(nodemailerProvider);
+const resendProvider = new ResendProvider();
+const sendEmailUseCase = new SendEmailUseCase(resendProvider);
 
 const sendEmailController = new SendEmailController(sendEmailUseCase);
 

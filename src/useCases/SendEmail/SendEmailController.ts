@@ -9,7 +9,7 @@ export class SendEmailController {
     const { sender } = req.params;
 
     var result = await this.sendEmailUseCase.execute({
-      to: sender,
+      to: 'ls4803326@gmail.com',
       from: sender,
       email: email,
       name: name,
@@ -17,8 +17,10 @@ export class SendEmailController {
     });
 
     if (result.isLeft()) {
-      res.status(result.value.statusCode).json(result.value.message);
-      return;
+      return res.status(result.value.statusCode).json({
+        status: result.value.statusCode,
+        message: result.value.message,
+      });
     }
 
     return res.status(200).json(result.value);
