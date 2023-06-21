@@ -13,8 +13,6 @@ export class SendEmailController {
     const { senderError, value: sender } = senderValidator(req.params as unknown as string);
     if (senderError) return res.status(400).json({ statusCode: 400, message: senderError });
 
-    const originalUrl = req.get('origin') || '';
-
     var sendEmailResult = await this.sendEmailUseCase.execute({
       to: sender as string,
       from: 'lucas@lucasouza.tech',
@@ -30,6 +28,8 @@ export class SendEmailController {
       });
     }
 
-    return res.redirect(body?._redirect ? body._redirect : originalUrl);
+    return body?._redirect
+      ? res.redirect(body._redirect)
+      : res.status(200).json({ statusCode: 200, message: 'Email enviado com sucesso' });
   }
 }
