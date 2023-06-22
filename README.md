@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/piazin/mailman/main/public/logo.png" alt="drawing" style="width:200px;"/>
+<img src="https://raw.githubusercontent.com/piazin/mailman/main/public/logo.png" alt="drawing" style="width:150px;"/>
 
 # Mailman
 
