@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/piazin/mailman/main/public/logo.png" alt="drawing" style="width:200px;"/>
+
 # Mailman
 
 Mailman é um serviço que permite enviar e-mails através de um formulário HTML simples. Com ele, você preenche os campos do formulário, como remetente, destinatário, assunto e conteúdo, e o Mailman se encarrega de enviar o e-mail. É fácil de usar, não requer conhecimentos técnicos e funciona com diferentes provedores de e-mail.
