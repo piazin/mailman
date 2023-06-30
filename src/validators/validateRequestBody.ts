@@ -3,7 +3,7 @@ import { z } from 'zod';
 const requestSchema = z.object({
   name: z.string(),
   email: z.string().email('Email invalido!').min(5),
-  message: z.string().min(1).max(500),
+  message: z.string().min(1).max(2000),
   _redirect: z.string().trim().url('Url de redirecionamento invalida!').optional(),
 });
 
