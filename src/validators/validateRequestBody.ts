@@ -1,9 +1,12 @@
 import { z } from 'zod';
 
 const requestSchema = z.object({
-  name: z.string(),
-  email: z.string().email('Email invalido!').min(5),
-  message: z.string().min(1).max(2000),
+  name: z.string({ required_error: 'O campo name é obrigatório' }),
+  email: z
+    .string({ required_error: 'O campo email é obrigatório' })
+    .email('Email invalido!')
+    .min(5),
+  message: z.string({ required_error: 'O campo message é obrigatório' }).min(1).max(2000),
   _redirect: z.string().trim().url('Url de redirecionamento invalida!').optional(),
 });
 

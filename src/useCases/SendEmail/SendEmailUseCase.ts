@@ -2,14 +2,14 @@ import { left } from '../../errors/either';
 import { ISendEmailDTO } from './SendEmailDTO';
 import { ErrorToSendEmail } from '../../errors/baseError';
 import { MailProvider, Response } from '../../providers/IMailProvider';
-import { availableTemplates, getEmailTemplate } from '../../templates/getEmailTemplate';
 import { replaceTemplateVariables } from '../../helpers/replaceTemplateVariables';
+import { availableTemplates, getEmailTemplate } from '../../templates/getEmailTemplate';
 
 export class SendEmailUseCase {
   constructor(private mailProvider: MailProvider) {}
 
   async execute(data: ISendEmailDTO): Promise<Response> {
-    if (data.to !== 'ls4803326@gmail.com') {
+    if (data.to !== 'ls4803326@gmail.com' && data.to !== 'suporte2@slpart.com.br') {
       return left(new ErrorToSendEmail('Email não autorizado', 403));
     }
 

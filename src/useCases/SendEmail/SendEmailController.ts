@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { SendEmailUseCase } from './SendEmailUseCase';
-import { validateRequestBody } from '../../validators/validateRequestBody';
 import { senderValidator } from '../../validators/senderValidator';
+import { validateRequestBody } from '../../validators/validateRequestBody';
 
 export class SendEmailController {
   constructor(private sendEmailUseCase: SendEmailUseCase) {}
@@ -15,7 +15,7 @@ export class SendEmailController {
 
     var sendEmailResult = await this.sendEmailUseCase.execute({
       to: sender as string,
-      from: 'lucas@lucasouza.tech',
+      from: 'mailman@lucasouza.tech',
       email: body?.email,
       name: body?.name,
       message: body?.message,
