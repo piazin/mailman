@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { RequestBody } from '../types';
 
 const requestSchema = z.object({
   name: z.string({ required_error: 'O campo name é obrigatório' }),
@@ -9,13 +10,6 @@ const requestSchema = z.object({
   message: z.string({ required_error: 'O campo message é obrigatório' }).min(1).max(2000),
   _redirect: z.string().trim().url('Url de redirecionamento invalida!').optional(),
 });
-
-interface RequestBody {
-  name: string;
-  email: string;
-  message: string;
-  _redirect: string;
-}
 
 export function validateRequestBody(email: RequestBody) {
   try {

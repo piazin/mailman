@@ -1,16 +1,10 @@
 import { Resend } from 'resend';
+import { IMessage } from '../../types';
 import { IMailProvider, Response } from '../IMailProvider';
 import { resendConfig } from '../../config/resend.config';
 
 import { left, right } from '../../errors/either';
 import { ErrorToSendEmail } from '../../errors/baseError';
-
-interface IMessage {
-  to: string;
-  from: string;
-  subject: string;
-  html: string;
-}
 
 export class ResendProvider implements IMailProvider<Resend, IMessage> {
   transporter: Resend;

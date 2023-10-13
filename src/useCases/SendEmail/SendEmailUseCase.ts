@@ -1,3 +1,4 @@
+import { IMessage } from '../../types';
 import { left } from '../../errors/either';
 import { ISendEmailDTO } from './SendEmailDTO';
 import { ErrorToSendEmail } from '../../errors/baseError';
@@ -6,10 +7,10 @@ import { replaceTemplateVariables } from '../../helpers/replaceTemplateVariables
 import { availableTemplates, getEmailTemplate } from '../../templates/getEmailTemplate';
 
 export class SendEmailUseCase {
-  constructor(private mailProvider: MailProvider) {}
+  constructor(private mailProvider: MailProvider<IMessage>) {}
 
   async execute(data: ISendEmailDTO): Promise<Response> {
-    if (data.to !== 'ls4803326@gmail.com' && data.to !== 'suporte2@slpart.com.br') {
+    if (data.to !== 'ls4803326@gmail.com') {
       return left(new ErrorToSendEmail('Email não autorizado', 403));
     }
 
@@ -21,8 +22,8 @@ export class SendEmailUseCase {
     });
 
     const mailOptions = {
-      to: data.to,
-      from: data.from,
+      to: [data.to],
+      from: `Mailman <${data.from}>`,
       subject: 'Novo email recebido do seu formulario Mailman',
       html: emailContent,
     };

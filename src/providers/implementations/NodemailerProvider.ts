@@ -1,15 +1,10 @@
+import { IMessage } from '../../types';
 import nodemailer, { Transporter } from 'nodemailer';
 import { IMailProvider, Response } from '../IMailProvider';
 import { transportConfig } from '../../config/nodemailer.config';
+
 import { left, right } from '../../errors/either';
 import { ErrorToSendEmail } from '../../errors/baseError';
-
-interface IMessage {
-  to: string;
-  from: string;
-  subject: string;
-  html: string;
-}
 
 export class NodemailerProvider implements IMailProvider<Transporter, IMessage> {
   transporter: nodemailer.Transporter;

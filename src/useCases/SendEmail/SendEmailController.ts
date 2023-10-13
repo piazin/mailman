@@ -13,7 +13,7 @@ export class SendEmailController {
     const { senderError, value: sender } = senderValidator(req.params as unknown as string);
     if (senderError) return res.status(400).json({ statusCode: 400, message: senderError });
 
-    var sendEmailResult = await this.sendEmailUseCase.execute({
+    const sendEmailResult = await this.sendEmailUseCase.execute({
       to: sender as string,
       from: 'mailman@lucasouza.tech',
       email: body?.email,

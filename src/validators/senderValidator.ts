@@ -1,13 +1,9 @@
 import { z } from 'zod';
+import { SenderValidationResult } from '../types';
 
 const senderSchema = z.object({
   sender: z.string().email('Email inválido!').trim().nonempty(),
 });
-
-interface SenderValidationResult {
-  senderError: string | null;
-  value: string | null;
-}
 
 export function senderValidator(sender: string): SenderValidationResult {
   try {
